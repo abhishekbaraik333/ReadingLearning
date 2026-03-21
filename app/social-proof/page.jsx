@@ -201,7 +201,7 @@ export default function SocialProof() {
             <div className="embla__container flex">
               {currentContent.reviews.map((review, index) => (
                 <div key={index} className="embla__slide flex-[0_0_90%] min-w-0 px-2">
-                  <div className="bg-[#221750] p-6 min-h-[460px] flex flex-col text-white rounded-[40px] my-4 shadow-xl">
+                  <div className="bg-[#221750] p-6 flex flex-col text-white rounded-[40px] my-4 shadow-xl">
                     <h3 className="text-[22px] font-bold mb-2 leading-snug">
                       "{review.title}"
                     </h3>

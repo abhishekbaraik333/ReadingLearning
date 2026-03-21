@@ -4,7 +4,6 @@ import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { useOnboarding } from "@/context/OnboardingContext";
 import ProgressBar from "@/components/ProgressBar";
-import { useState } from "react";
 
 const pageVariants = {
   initial: (direction) => ({
@@ -23,15 +22,15 @@ const pageVariants = {
   }),
 };
 
-export default function TeachingReason() {
+export default function HomeChallenge() {
   const router = useRouter();
-  const { direction, updateDirection, selectedReason, setSelectedReason } = useOnboarding();
+  const { direction, updateDirection, homeChallenge, setHomeChallenge } = useOnboarding();
 
-  const reasons = [
-    "I'm preparing my child for school",
-    "My child is a struggling reader",
-    "I'm homeschooling my child",
-    "I want to bond with my child",
+  const options = [
+    "Lack of time",
+    "Too expensive",
+    "Ineffective program(s)",
+    "Lack of motivation from them",
     "Something else"
   ];
 
@@ -40,25 +39,15 @@ export default function TeachingReason() {
     router.back();
   };
 
-  const handleReasonSelect = (reason) => {
-    setSelectedReason(reason);
+  const handleOptionSelect = (option) => {
+    setHomeChallenge(option);
     updateDirection(1);
-    
-    if (reason === "I'm preparing my child for school" || 
-        reason === "My child is a struggling reader" ||
-        reason === "I'm homeschooling my child" ||
-        reason === "I want to bond with my child" ||
-        reason === "Something else") {
-      router.push("/social-proof");
-    } else {
-      // Future navigation could go here
-      alert(`Reason selected: ${reason}`);
-    }
+    router.push("/challenge-response");
   };
 
   return (
     <div className="w-full flex flex-col items-center overflow-x-hidden">
-      <header className="w-full max-w-[450px] flex flex-col items-center pt-4 pb-0 px-5 relative">
+      <header className="w-full max-w-[450px] flex flex-col items-center pt-4 pb-0 px-5 relative border-b border-gray-100">
         <button 
           className="absolute left-2 top-4 text-purple-dark flex items-center justify-center w-10 h-10 rounded-full hover:bg-black/5 transition-colors" 
           onClick={handleBack}
@@ -71,7 +60,7 @@ export default function TeachingReason() {
           </svg>
         </button>
         <img src="/VlQPe_m3.webp" alt="Reading.com" className="h-7 mb-3 object-contain" />
-        <ProgressBar progress={80} />
+        <ProgressBar progress={100} />
       </header>
 
       <motion.main
@@ -80,25 +69,25 @@ export default function TeachingReason() {
         initial="initial"
         animate="animate"
         exit="exit"
-        className="w-full max-w-[450px] px-5 pb-20 flex flex-col items-center"
+        className="w-full max-w-[450px] px-5 pb-20 flex flex-col items-center pt-8"
       >
-        <h1 className="text-[24px] font-bold mb-10 text-center text-purple-dark leading-snug">
-          What's the main reason you want<br /> to teach your child to read?
+        <h1 className="text-[24px] font-bold mb-10 text-center text-[#221750] leading-tight px-4 font-quicksand">
+          What's the main challenge you've faced when teaching your child how to read?
         </h1>
 
-        <div className="flex flex-col gap-3 w-full">
-          {reasons.map((reason) => (
+        <div className="w-full flex flex-col gap-3 px-4">
+          {options.map((option) => (
             <motion.button
-              key={reason}
+              key={option}
               whileTap={{ scale: 0.98 }}
-              className={`min-h-[64px] py-6 px-8 rounded-full text-lg font-semibold flex items-center justify-center transition-all duration-200 border-2 border-solid ${
-                selectedReason === reason 
+              className={`min-h-[64px] py-4 px-8 rounded-full text-[18px] font-semibold flex items-center justify-center transition-all duration-200 border-2 border-solid leading-snug font-quicksand ${
+                homeChallenge === option 
                   ? 'bg-purple-primary text-white border-purple-primary shadow-lg shadow-purple-primary/20' 
                   : 'bg-blue-unselected text-purple-dark border-[#cbd5e1]'
               }`}
-              onClick={() => handleReasonSelect(reason)}
+              onClick={() => handleOptionSelect(option)}
             >
-              {reason}
+              {option}
             </motion.button>
           ))}
         </div>

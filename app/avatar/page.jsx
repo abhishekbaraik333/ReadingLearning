@@ -4,7 +4,6 @@ import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { useOnboarding } from "@/context/OnboardingContext";
 import ProgressBar from "@/components/ProgressBar";
-import { useState } from "react";
 
 const pageVariants = {
   initial: (direction) => ({
@@ -23,42 +22,30 @@ const pageVariants = {
   }),
 };
 
-export default function TeachingReason() {
-  const router = useRouter();
-  const { direction, updateDirection, selectedReason, setSelectedReason } = useOnboarding();
+// 12 avatars as shown in the grid image
+const avatars = Array.from({ length: 12 }, (_, i) => ({
+  id: i + 1,
+  src: `/avatar${i + 1}.webp`
+}));
 
-  const reasons = [
-    "I'm preparing my child for school",
-    "My child is a struggling reader",
-    "I'm homeschooling my child",
-    "I want to bond with my child",
-    "Something else"
-  ];
+export default function AvatarSelection() {
+  const router = useRouter();
+  const { direction, updateDirection, selectedAvatar, setSelectedAvatar } = useOnboarding();
 
   const handleBack = () => {
     updateDirection(-1);
     router.back();
   };
 
-  const handleReasonSelect = (reason) => {
-    setSelectedReason(reason);
+  const handleAvatarSelect = (avatarId) => {
+    setSelectedAvatar(avatarId);
     updateDirection(1);
-    
-    if (reason === "I'm preparing my child for school" || 
-        reason === "My child is a struggling reader" ||
-        reason === "I'm homeschooling my child" ||
-        reason === "I want to bond with my child" ||
-        reason === "Something else") {
-      router.push("/social-proof");
-    } else {
-      // Future navigation could go here
-      alert(`Reason selected: ${reason}`);
-    }
+    router.push("/child-name");
   };
 
   return (
     <div className="w-full flex flex-col items-center overflow-x-hidden">
-      <header className="w-full max-w-[450px] flex flex-col items-center pt-4 pb-0 px-5 relative">
+      <header className="w-full max-w-[450px] flex flex-col items-center pt-4 pb-0 px-5 relative border-b border-gray-100">
         <button 
           className="absolute left-2 top-4 text-purple-dark flex items-center justify-center w-10 h-10 rounded-full hover:bg-black/5 transition-colors" 
           onClick={handleBack}
@@ -71,7 +58,7 @@ export default function TeachingReason() {
           </svg>
         </button>
         <img src="/VlQPe_m3.webp" alt="Reading.com" className="h-7 mb-3 object-contain" />
-        <ProgressBar progress={80} />
+        <ProgressBar progress={100} />
       </header>
 
       <motion.main
@@ -80,25 +67,29 @@ export default function TeachingReason() {
         initial="initial"
         animate="animate"
         exit="exit"
-        className="w-full max-w-[450px] px-5 pb-20 flex flex-col items-center"
+        className="w-full max-w-[450px] px-8 pb-10 flex flex-col items-center pt-8"
       >
-        <h1 className="text-[24px] font-bold mb-10 text-center text-purple-dark leading-snug">
-          What's the main reason you want<br /> to teach your child to read?
+        <h1 className="text-[24px] font-bold mb-10 text-center text-[#221750] leading-tight font-quicksand">
+          Select an avatar for your child
         </h1>
 
-        <div className="flex flex-col gap-3 w-full">
-          {reasons.map((reason) => (
+        <div className="grid grid-cols-3 gap-6 w-full max-w-[360px]">
+          {avatars.map((avatar) => (
             <motion.button
-              key={reason}
-              whileTap={{ scale: 0.98 }}
-              className={`min-h-[64px] py-6 px-8 rounded-full text-lg font-semibold flex items-center justify-center transition-all duration-200 border-2 border-solid ${
-                selectedReason === reason 
-                  ? 'bg-purple-primary text-white border-purple-primary shadow-lg shadow-purple-primary/20' 
-                  : 'bg-blue-unselected text-purple-dark border-[#cbd5e1]'
+              key={avatar.id}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => handleAvatarSelect(avatar.id)}
+              className={`relative rounded-full aspect-square transition-all duration-200 ${
+                selectedAvatar === avatar.id 
+                  ? 'ring-4 ring-purple-600 ring-offset-2' 
+                  : 'hover:opacity-90'
               }`}
-              onClick={() => handleReasonSelect(reason)}
             >
-              {reason}
+              <img 
+                src={avatar.src} 
+                alt={`Avatar ${avatar.id}`} 
+                className="w-full h-full object-cover rounded-full"
+              />
             </motion.button>
           ))}
         </div>

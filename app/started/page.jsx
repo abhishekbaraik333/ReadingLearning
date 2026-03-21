@@ -4,7 +4,6 @@ import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { useOnboarding } from "@/context/OnboardingContext";
 import ProgressBar from "@/components/ProgressBar";
-import { useState } from "react";
 
 const pageVariants = {
   initial: (direction) => ({
@@ -23,16 +22,15 @@ const pageVariants = {
   }),
 };
 
-export default function TeachingReason() {
+export default function StartedReading() {
   const router = useRouter();
-  const { direction, updateDirection, selectedReason, setSelectedReason } = useOnboarding();
+  const { direction, updateDirection, selectedStatus, setSelectedStatus } = useOnboarding();
 
-  const reasons = [
-    "I'm preparing my child for school",
-    "My child is a struggling reader",
-    "I'm homeschooling my child",
-    "I want to bond with my child",
-    "Something else"
+  const options = [
+    "Yes, at school",
+    "Yes, at home with me",
+    "Yes, both at home and at school",
+    "Not yet"
   ];
 
   const handleBack = () => {
@@ -40,19 +38,14 @@ export default function TeachingReason() {
     router.back();
   };
 
-  const handleReasonSelect = (reason) => {
-    setSelectedReason(reason);
+  const handleStatusSelect = (status) => {
+    setSelectedStatus(status);
     updateDirection(1);
     
-    if (reason === "I'm preparing my child for school" || 
-        reason === "My child is a struggling reader" ||
-        reason === "I'm homeschooling my child" ||
-        reason === "I want to bond with my child" ||
-        reason === "Something else") {
-      router.push("/social-proof");
+    if (status === "Not yet") {
+      router.push("/first-timer");
     } else {
-      // Future navigation could go here
-      alert(`Reason selected: ${reason}`);
+      router.push("/placement");
     }
   };
 
@@ -71,7 +64,7 @@ export default function TeachingReason() {
           </svg>
         </button>
         <img src="/VlQPe_m3.webp" alt="Reading.com" className="h-7 mb-3 object-contain" />
-        <ProgressBar progress={80} />
+        <ProgressBar progress={95} />
       </header>
 
       <motion.main
@@ -82,23 +75,23 @@ export default function TeachingReason() {
         exit="exit"
         className="w-full max-w-[450px] px-5 pb-20 flex flex-col items-center"
       >
-        <h1 className="text-[24px] font-bold mb-10 text-center text-purple-dark leading-snug">
-          What's the main reason you want<br /> to teach your child to read?
+        <h1 className="text-[24px] font-bold mb-10 text-center text-purple-dark leading-snug mt-6 px-4">
+          Has your child already started learning to read?
         </h1>
 
-        <div className="flex flex-col gap-3 w-full">
-          {reasons.map((reason) => (
+        <div className="w-full flex flex-col gap-4 px-4">
+          {options.map((option) => (
             <motion.button
-              key={reason}
+              key={option}
               whileTap={{ scale: 0.98 }}
-              className={`min-h-[64px] py-6 px-8 rounded-full text-lg font-semibold flex items-center justify-center transition-all duration-200 border-2 border-solid ${
-                selectedReason === reason 
+              className={`min-h-[72px] py-4 px-8 rounded-full text-[18px] font-semibold flex items-center justify-center transition-all duration-200 border-2 border-solid ${
+                selectedStatus === option 
                   ? 'bg-purple-primary text-white border-purple-primary shadow-lg shadow-purple-primary/20' 
                   : 'bg-blue-unselected text-purple-dark border-[#cbd5e1]'
               }`}
-              onClick={() => handleReasonSelect(reason)}
+              onClick={() => handleStatusSelect(option)}
             >
-              {reason}
+              {option}
             </motion.button>
           ))}
         </div>

@@ -4,7 +4,6 @@ import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { useOnboarding } from "@/context/OnboardingContext";
 import ProgressBar from "@/components/ProgressBar";
-import { useState } from "react";
 
 const pageVariants = {
   initial: (direction) => ({
@@ -23,42 +22,23 @@ const pageVariants = {
   }),
 };
 
-export default function TeachingReason() {
+export default function FirstTimer() {
   const router = useRouter();
-  const { direction, updateDirection, selectedReason, setSelectedReason } = useOnboarding();
-
-  const reasons = [
-    "I'm preparing my child for school",
-    "My child is a struggling reader",
-    "I'm homeschooling my child",
-    "I want to bond with my child",
-    "Something else"
-  ];
+  const { direction, updateDirection } = useOnboarding();
 
   const handleBack = () => {
     updateDirection(-1);
     router.back();
   };
 
-  const handleReasonSelect = (reason) => {
-    setSelectedReason(reason);
+  const handleContinue = () => {
     updateDirection(1);
-    
-    if (reason === "I'm preparing my child for school" || 
-        reason === "My child is a struggling reader" ||
-        reason === "I'm homeschooling my child" ||
-        reason === "I want to bond with my child" ||
-        reason === "Something else") {
-      router.push("/social-proof");
-    } else {
-      // Future navigation could go here
-      alert(`Reason selected: ${reason}`);
-    }
+    router.push("/learning-differences");
   };
 
   return (
     <div className="w-full flex flex-col items-center overflow-x-hidden">
-      <header className="w-full max-w-[450px] flex flex-col items-center pt-4 pb-0 px-5 relative">
+      <header className="w-full max-w-[450px] flex flex-col items-center pt-4 pb-0 px-5 relative border-b border-gray-100">
         <button 
           className="absolute left-2 top-4 text-purple-dark flex items-center justify-center w-10 h-10 rounded-full hover:bg-black/5 transition-colors" 
           onClick={handleBack}
@@ -71,7 +51,7 @@ export default function TeachingReason() {
           </svg>
         </button>
         <img src="/VlQPe_m3.webp" alt="Reading.com" className="h-7 mb-3 object-contain" />
-        <ProgressBar progress={80} />
+        <ProgressBar progress={100} />
       </header>
 
       <motion.main
@@ -80,28 +60,37 @@ export default function TeachingReason() {
         initial="initial"
         animate="animate"
         exit="exit"
-        className="w-full max-w-[450px] px-5 pb-20 flex flex-col items-center"
+        className="w-full max-w-[450px] px-8 pb-20 flex flex-col items-center pt-8"
       >
-        <h1 className="text-[24px] font-bold mb-10 text-center text-purple-dark leading-snug">
-          What's the main reason you want<br /> to teach your child to read?
+        <div className="w-full flex justify-center mb-10">
+          <img 
+            src="/lackoftime.webp" 
+            alt="No training required" 
+            className="w-full max-w-[340px] object-contain rounded-3xl"
+          />
+        </div>
+
+        <h1 className="text-[24px] font-bold text-[#221750] text-center leading-snug mb-3 px-4 font-quicksand">
+          No training or preparation required. First-timers love us!
         </h1>
 
-        <div className="flex flex-col gap-3 w-full">
-          {reasons.map((reason) => (
-            <motion.button
-              key={reason}
-              whileTap={{ scale: 0.98 }}
-              className={`min-h-[64px] py-6 px-8 rounded-full text-lg font-semibold flex items-center justify-center transition-all duration-200 border-2 border-solid ${
-                selectedReason === reason 
-                  ? 'bg-purple-primary text-white border-purple-primary shadow-lg shadow-purple-primary/20' 
-                  : 'bg-blue-unselected text-purple-dark border-[#cbd5e1]'
-              }`}
-              onClick={() => handleReasonSelect(reason)}
-            >
-              {reason}
-            </motion.button>
-          ))}
+        <h2 className="text-[20px] font-bold text-[#221750] text-center mb-10 px-4 font-quicksand">
+          Less expensive than a tutor!
+        </h2>
+
+        <div className="text-[17px] text-center text-purple-dark/90 font-medium mb-12 px-2 leading-relaxed font-quicksand">
+          While the Reading.com program requires a paid subscription, we do our best to keep it affordable.
+          <br /><br />
+          <span className="font-bold">It's a fraction of the cost of a private tutor!</span>
         </div>
+
+        <motion.button 
+          whileTap={{ scale: 0.98 }}
+          className="w-full h-16 bg-purple-primary text-white rounded-full text-xl font-extrabold shadow-lg shadow-purple-primary/20 hover:scale-[1.01] transition-all mt-auto"
+          onClick={handleContinue}
+        >
+          Continue
+        </motion.button>
       </motion.main>
     </div>
   );

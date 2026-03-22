@@ -42,7 +42,7 @@ export default function AgeSelection() {
     <div className="w-full flex flex-col items-center overflow-x-hidden">
       <header className="w-full max-w-[450px] flex flex-col items-center pt-4 pb-0 px-5">
         <img src="/VlQPe_m3.webp" alt="Reading.com" className="h-7 mb-3 object-contain" />
-        <ProgressBar progress={33} />
+        <ProgressBar progress={3} />
       </header>
 
       <motion.main

@@ -57,7 +57,7 @@ export default function Placement() {
           </svg>
         </button>
         <img src="/VlQPe_m3.webp" alt="Reading.com" className="h-7 mb-3 object-contain" />
-        <ProgressBar progress={100} />
+        <ProgressBar progress={21} />
       </header>
 
       <motion.main

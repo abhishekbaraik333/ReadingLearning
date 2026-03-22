@@ -38,11 +38,10 @@ export default function FinalizingPlan() {
   useEffect(() => {
     if (complete) {
       setTimeout(() => {
-        // Future navigation to results or pricing
-        alert("Plan finalized!");
-      }, 500);
+        router.push("/congrats");
+      }, 800);
     }
-  }, [complete]);
+  }, [complete, router]);
 
   return (
     <div className="w-full min-h-screen flex flex-col items-center bg-white overflow-x-hidden pt-6 px-6">

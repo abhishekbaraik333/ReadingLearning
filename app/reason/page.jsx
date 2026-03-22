@@ -71,7 +71,7 @@ export default function TeachingReason() {
           </svg>
         </button>
         <img src="/VlQPe_m3.webp" alt="Reading.com" className="h-7 mb-3 object-contain" />
-        <ProgressBar progress={80} />
+        <ProgressBar progress={8} />
       </header>
 
       <motion.main

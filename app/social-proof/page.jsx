@@ -171,7 +171,7 @@ export default function SocialProof() {
           </svg>
         </button>
         <img src="/VlQPe_m3.webp" alt="Reading.com" className="h-7 mb-3 object-contain" />
-        <ProgressBar progress={90} />
+        <ProgressBar progress={10} />
       </header>
 
       <motion.main

@@ -13,44 +13,31 @@ const pageVariants = {
   animate: {
     opacity: 1,
     x: 0,
-    transition: { duration: 0.4, ease: [0.43, 0.13, 0.23, 0.96] },
+    transition: { duration: 0.6, ease: [0.43, 0.13, 0.23, 0.96] },
   },
   exit: (direction) => ({
     opacity: 0,
     x: direction > 0 ? -50 : 50,
-    transition: { duration: 0.3, ease: [0.43, 0.13, 0.23, 0.96] },
+    transition: { duration: 0.4, ease: [0.43, 0.13, 0.23, 0.96] },
   }),
 };
 
-export default function StartedReading() {
+export default function Guarantee() {
   const router = useRouter();
-  const { direction, updateDirection, selectedStatus, setSelectedStatus } = useOnboarding();
-
-  const options = [
-    "Yes, at school",
-    "Yes, at home with me",
-    "Yes, both at home and at school",
-    "Not yet"
-  ];
+  const { direction, updateDirection } = useOnboarding();
 
   const handleBack = () => {
     updateDirection(-1);
     router.back();
   };
 
-  const handleStatusSelect = (status) => {
-    setSelectedStatus(status);
+  const handleContinue = () => {
     updateDirection(1);
-    
-    if (status === "Not yet") {
-      router.push("/first-timer");
-    } else {
-      router.push("/placement");
-    }
+    router.push("/plans");
   };
 
   return (
-    <div className="w-full flex flex-col items-center overflow-x-hidden">
+    <div className="w-full flex flex-col items-center bg-white overflow-x-hidden min-h-screen">
       <header className="w-full max-w-[450px] flex flex-col items-center pt-4 pb-0 px-5 relative">
         <button 
           className="absolute left-2 top-4 text-purple-dark flex items-center justify-center w-10 h-10 rounded-full hover:bg-black/5 transition-colors" 
@@ -64,7 +51,7 @@ export default function StartedReading() {
           </svg>
         </button>
         <img src="/VlQPe_m3.webp" alt="Reading.com" className="h-7 mb-3 object-contain" />
-        <ProgressBar progress={18} />
+        <ProgressBar progress={81} />
       </header>
 
       <motion.main
@@ -73,27 +60,37 @@ export default function StartedReading() {
         initial="initial"
         animate="animate"
         exit="exit"
-        className="w-full max-w-[450px] px-5 pb-20 flex flex-col items-center"
+        className="w-full max-w-[450px] px-8 pb-10 flex flex-col items-center pt-8"
       >
-        <h1 className="text-[24px] font-bold mb-10 text-center text-purple-dark leading-snug mt-6 px-4">
-          Has your child already started learning to read?
-        </h1>
+        <img 
+          src="/guarantee.webp" 
+          alt="30-Day Money Back Guarantee" 
+          className="w-full max-w-[280px] h-auto object-contain mb-10"
+        />
 
-        <div className="w-full flex flex-col gap-4 px-4">
-          {options.map((option) => (
-            <motion.button
-              key={option}
-              whileTap={{ scale: 0.98 }}
-              className={`min-h-[72px] py-4 px-8 rounded-full text-[18px] font-semibold flex items-center justify-center transition-all duration-200 border-2 border-solid ${
-                selectedStatus === option 
-                  ? 'bg-purple-primary text-white border-purple-primary shadow-lg shadow-purple-primary/20' 
-                  : 'bg-blue-unselected text-purple-dark border-[#cbd5e1]'
-              }`}
-              onClick={() => handleStatusSelect(option)}
-            >
-              {option}
-            </motion.button>
-          ))}
+        <div className="text-center space-y-6 mb-16 px-4">
+          <h1 className="text-[24px] font-bold text-[#221750] font-quicksand leading-tight">
+            Try our program risk-free!
+          </h1>
+          
+          <div className="space-y-4">
+            <p className="text-[17px] text-[#221750] font-medium font-quicksand leading-tight">
+              A 30-day money-back guarantee is included in every plan.
+            </p>
+            <p className="text-[17px] text-[#221750] font-medium font-quicksand leading-tight">
+              No questions asked.
+            </p>
+          </div>
+        </div>
+
+        <div className="w-full mt-auto">
+          <motion.button 
+            whileTap={{ scale: 0.98 }}
+            className="w-full h-16 bg-purple-primary text-white rounded-full text-xl font-extrabold shadow-lg shadow-purple-primary/20 hover:scale-[1.01] transition-all"
+            onClick={handleContinue}
+          >
+            Continue
+          </motion.button>
         </div>
       </motion.main>
     </div>

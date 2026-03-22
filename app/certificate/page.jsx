@@ -46,7 +46,7 @@ export default function Certificate() {
           </svg>
         </button>
         <img src="/VlQPe_m3.webp" alt="Reading.com" className="h-7 mb-3 object-contain" />
-        <ProgressBar progress={98} />
+        <ProgressBar progress={15} />
       </header>
 
       <motion.main

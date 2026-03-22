@@ -13,18 +13,18 @@ const pageVariants = {
   animate: {
     opacity: 1,
     x: 0,
-    transition: { duration: 0.4, ease: [0.43, 0.13, 0.23, 0.96] },
+    transition: { duration: 0.6, ease: [0.43, 0.13, 0.23, 0.96] },
   },
   exit: (direction) => ({
     opacity: 0,
     x: direction > 0 ? -50 : 50,
-    transition: { duration: 0.3, ease: [0.43, 0.13, 0.23, 0.96] },
+    transition: { duration: 0.4, ease: [0.43, 0.13, 0.23, 0.96] },
   }),
 };
 
-export default function FirstTimer() {
+export default function ReinforcementGames() {
   const router = useRouter();
-  const { direction, updateDirection } = useOnboarding();
+  const { childName, childGender, direction, updateDirection } = useOnboarding();
 
   const handleBack = () => {
     updateDirection(-1);
@@ -33,11 +33,21 @@ export default function FirstTimer() {
 
   const handleContinue = () => {
     updateDirection(1);
-    router.push("/learning-differences");
+    router.push("/guarantee");
+  };
+
+  const handleSkip = () => {
+    handleContinue();
+  };
+
+  const getPronoun = () => {
+    if (childGender === "Boy") return "his";
+    if (childGender === "Girl") return "her";
+    return "their";
   };
 
   return (
-    <div className="w-full flex flex-col items-center overflow-x-hidden">
+    <div className="w-full flex flex-col items-center bg-white overflow-x-hidden min-h-screen">
       <header className="w-full max-w-[450px] flex flex-col items-center pt-4 pb-0 px-5 relative">
         <button 
           className="absolute left-2 top-4 text-purple-dark flex items-center justify-center w-10 h-10 rounded-full hover:bg-black/5 transition-colors" 
@@ -51,7 +61,7 @@ export default function FirstTimer() {
           </svg>
         </button>
         <img src="/VlQPe_m3.webp" alt="Reading.com" className="h-7 mb-3 object-contain" />
-        <ProgressBar progress={25} />
+        <ProgressBar progress={78} />
       </header>
 
       <motion.main
@@ -60,37 +70,36 @@ export default function FirstTimer() {
         initial="initial"
         animate="animate"
         exit="exit"
-        className="w-full max-w-[450px] px-8 pb-20 flex flex-col items-center pt-8"
+        className="w-full max-w-[450px] px-8 pb-10 flex flex-col items-center pt-6"
       >
-        <div className="w-full flex justify-center mb-10">
-          <img 
-            src="/lackoftime.webp" 
-            alt="No training required" 
-            className="w-full max-w-[340px] object-contain rounded-3xl"
-          />
+        <div className="flex flex-col items-center mb-6">
+          <span className="text-[12px] font-medium text-black tracking-widest uppercase mb-4 border-b-[1px] border-black pb-0.5">
+            WHY READING.COM WORKS
+          </span>
+          <h1 className="text-[24px] font-bold text-[#221750] text-center px-2 leading-tight font-quicksand">
+            ...And reinforcement games!
+          </h1>
         </div>
 
-        <h1 className="text-[24px] font-bold text-[#221750] text-center leading-snug mb-3 px-4 font-quicksand">
-          No training or preparation required. First-timers love us!
-        </h1>
+        <p className="text-[16px] text-[#221750] font-medium text-center mb-8 leading-relaxed font-quicksand px-2">
+          <span className="font-medium">{childName || 'Your child'}</span> will play fun games to practice new concepts on {getPronoun()} own.
+        </p>
 
-        <h2 className="text-[20px] font-bold text-[#221750] text-center mb-10 px-4 font-quicksand">
-          Less expensive than a tutor!
-        </h2>
+        <img 
+          src="/games.webp" 
+          alt="Fun reinforcement games" 
+          className="w-full max-w-[400px] h-auto object-contain mb-16"
+        />
 
-        <div className="text-[17px] text-center text-purple-dark/90 font-medium mb-12 px-2 leading-relaxed font-quicksand">
-          While the Reading.com program requires a paid subscription, we do our best to keep it affordable.
-          <br /><br />
-          <span className="font-bold">It's a fraction of the cost of a private tutor!</span>
+        <div className="w-full mt-auto">
+          <motion.button 
+            whileTap={{ scale: 0.98 }}
+            className="w-full h-16 bg-purple-primary text-white rounded-full text-xl font-extrabold shadow-lg shadow-purple-primary/20 hover:scale-[1.01] transition-all"
+            onClick={handleContinue}
+          >
+            Continue
+          </motion.button>
         </div>
-
-        <motion.button 
-          whileTap={{ scale: 0.98 }}
-          className="w-full h-16 bg-purple-primary text-white rounded-full text-xl font-extrabold shadow-lg shadow-purple-primary/20 hover:scale-[1.01] transition-all mt-auto"
-          onClick={handleContinue}
-        >
-          Continue
-        </motion.button>
       </motion.main>
     </div>
   );

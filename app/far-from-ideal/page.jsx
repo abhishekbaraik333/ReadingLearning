@@ -33,7 +33,7 @@ export default function FarFromIdeal() {
 
   return (
     <div className="w-full flex flex-col items-center overflow-x-hidden">
-      <header className="w-full max-w-[450px] flex flex-col items-center pt-4 pb-0 px-5 relative border-b border-gray-100">
+      <header className="w-full max-w-[450px] flex flex-col items-center pt-4 pb-0 px-5 relative">
         <button 
           className="absolute left-2 top-4 text-purple-dark flex items-center justify-center w-10 h-10 rounded-full hover:bg-black/5 transition-colors" 
           onClick={handleBack}
@@ -46,7 +46,7 @@ export default function FarFromIdeal() {
           </svg>
         </button>
         <img src="/VlQPe_m3.webp" alt="Reading.com" className="h-7 mb-3 object-contain" />
-        <ProgressBar progress={100} />
+        <ProgressBar progress={25} />
       </header>
 
       <motion.main

@@ -22,34 +22,29 @@ const pageVariants = {
   }),
 };
 
-const referralOptions = [
-  "Friends & family",
-  "App store",
-  "Facebook",
-  "TikTok",
-  "Instagram",
-  "TV / Streaming TV",
-  "Google",
-  "YouTube",
-  "Radio",
-  "News / Article /Blog",
-  "Podcast",
-  "Other"
-];
-
-export default function Referral() {
+export default function FullSentences() {
   const router = useRouter();
-  const { referralSource, setReferralSource, direction, updateDirection } = useOnboarding();
+  const { childName, childGender, direction, updateDirection } = useOnboarding();
 
   const handleBack = () => {
     updateDirection(-1);
     router.back();
   };
 
-  const handleOptionSelect = (option) => {
-    setReferralSource(option);
+  const handleContinue = () => {
     updateDirection(1);
-    router.push("/finalizing");
+    router.push("/unlock-books");
+  };
+
+  const handleSkip = () => {
+    updateDirection(1);
+    router.push("/guarantee");
+  };
+
+  const getPossessive = () => {
+    if (childGender === "Boy") return "his";
+    if (childGender === "Girl") return "her";
+    return "their";
   };
 
   return (
@@ -67,7 +62,7 @@ export default function Referral() {
           </svg>
         </button>
         <img src="/VlQPe_m3.webp" alt="Reading.com" className="h-7 mb-3 object-contain" />
-        <ProgressBar progress={60} />
+        <ProgressBar progress={72} />
       </header>
 
       <motion.main
@@ -76,27 +71,42 @@ export default function Referral() {
         initial="initial"
         animate="animate"
         exit="exit"
-        className="w-full max-w-[450px] px-8 pb-10 flex flex-col items-center pt-10"
+        className="w-full max-w-[450px] px-8 pb-10 flex flex-col items-center pt-6"
       >
-        <h1 className="text-[24px] font-bold text-[#221750] text-center mb-4 font-quicksand leading-tight">
-          How did you hear about us?
-        </h1>
+        <div className="flex flex-col items-center mb-6">
+          <span className="text-[12px] font-medium text-black tracking-widest uppercase mb-4 border-b-[1px] border-black pb-0.5">
+            WHY READING.COM WORKS
+          </span>
+          <h1 className="text-[24px] font-bold text-[#221750] text-center px-2 leading-tight font-quicksand">
+            ...To full sentences!
+          </h1>
+        </div>
 
-        <div className="grid grid-cols-2 gap-2 w-full">
-          {referralOptions.map((option) => (
-            <motion.button
-              key={option}
-              whileTap={{ scale: 0.98 }}
-              onClick={() => handleOptionSelect(option)}
-              className={`w-full py-6 px-2 rounded-full text-[16px] font-semibold transition-all duration-200 border-2 text-center flex items-center justify-center min-h-[64px] font-quicksand ${
-                referralSource === option
-                  ? "bg-purple-primary text-white border-purple-primary shadow-lg shadow-purple-primary/20"
-                  : "bg-blue-unselected text-purple-dark border-[#cbd5e1]"
-              }`}
-            >
-              {option}
-            </motion.button>
-          ))}
+        <p className="text-[16px] text-[#221750] font-medium text-center mb-10 leading-relaxed font-quicksand px-2">
+          Before you know it, <span className="font-medium">{childName || 'your child'}</span> will be decoding words and reading full sentences on {getPossessive()} own.
+        </p>
+
+        <img 
+          src="/words.webp" 
+          alt="Full sentences reading" 
+          className="w-full max-w-[400px] h-auto object-contain mb-16 rounded-2xl shadow-md border border-slate-100"
+        />
+
+        <div className="w-full space-y-4 mt-auto">
+          <motion.button 
+            whileTap={{ scale: 0.98 }}
+            className="w-full h-16 bg-purple-primary text-white rounded-full text-xl font-extrabold shadow-lg shadow-purple-primary/20 hover:scale-[1.01] transition-all"
+            onClick={handleContinue}
+          >
+            Continue
+          </motion.button>
+          
+          <button 
+            className="w-full py-2 text-[14px] text-slate-700 font-bold font-quicksand hover:text-slate-800 transition-colors"
+            onClick={handleSkip}
+          >
+            Skip
+          </button>
         </div>
       </motion.main>
     </div>

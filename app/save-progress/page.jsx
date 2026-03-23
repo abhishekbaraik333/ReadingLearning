@@ -97,7 +97,7 @@ export default function SaveProgress() {
         {/* Join Parents Section */}
         <div className="w-full flex flex-col items-center mb-8 mt-4">
           <img 
-            src="/join.webp" 
+            src="/Join.webp" 
             alt="Parents joining" 
             className="h-12 object-contain mb-2"
           />

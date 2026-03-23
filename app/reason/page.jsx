@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { useOnboarding } from "@/context/OnboardingContext";
 import ProgressBar from "@/components/ProgressBar";
+import { useImagePreload } from "@/hooks/useImagePreload";
 import { useState } from "react";
 
 const pageVariants = {
@@ -26,6 +27,7 @@ const pageVariants = {
 export default function TeachingReason() {
   const router = useRouter();
   const { direction, updateDirection, selectedReason, setSelectedReason } = useOnboarding();
+  const isReady = useImagePreload("/VlQPe_m3.webp");
 
   const reasons = [
     "I'm preparing my child for school",
@@ -78,7 +80,7 @@ export default function TeachingReason() {
         custom={direction}
         variants={pageVariants}
         initial="initial"
-        animate="animate"
+        animate={isReady ? "animate" : "initial"}
         exit="exit"
         className="w-full max-w-[450px] px-5 pb-20 flex flex-col items-center"
       >

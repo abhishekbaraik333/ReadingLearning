@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { useOnboarding } from "@/context/OnboardingContext";
 import ProgressBar from "@/components/ProgressBar";
+import { useImagePreload } from "@/hooks/useImagePreload";
 import useEmblaCarousel from 'embla-carousel-react';
 import Autoplay from 'embla-carousel-autoplay';
 
@@ -149,6 +150,8 @@ export default function SocialProof() {
   // Fallback to default if reason is not mapped (or use First option)
   const currentContent = contentMap[selectedReason] || contentMap["I'm preparing my child for school"];
 
+  const isReady = useImagePreload("/VlQPe_m3.webp");
+
   const [emblaRef] = useEmblaCarousel({ loop: true, align: 'center' }, [Autoplay({ delay: 4000, stopOnInteraction: false })]);
 
   const handleBack = () => {
@@ -178,7 +181,7 @@ export default function SocialProof() {
         custom={direction}
         variants={pageVariants}
         initial="initial"
-        animate="animate"
+        animate={isReady ? "animate" : "initial"}
         exit="exit"
         className="w-full max-w-[450px] flex flex-col items-center flex-grow"
       >
@@ -226,7 +229,7 @@ export default function SocialProof() {
         custom={direction}
         variants={pageVariants}
         initial="initial"
-        animate="animate"
+        animate={isReady ? "animate" : "initial"}
         exit="exit"
         className="w-full max-w-[450px] px-5 sticky bottom-2 z-50 mt-auto"
       >

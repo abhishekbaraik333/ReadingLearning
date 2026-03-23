@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { useOnboarding } from "@/context/OnboardingContext";
 import ProgressBar from "@/components/ProgressBar";
+import { useImagePreload } from "@/hooks/useImagePreload";
 
 const pageVariants = {
   initial: (direction) => ({
@@ -40,6 +41,7 @@ const referralOptions = [
 export default function Referral() {
   const router = useRouter();
   const { referralSource, setReferralSource, direction, updateDirection } = useOnboarding();
+  const isReady = useImagePreload("/VlQPe_m3.webp");
 
   const handleBack = () => {
     updateDirection(-1);
@@ -74,7 +76,7 @@ export default function Referral() {
         custom={direction}
         variants={pageVariants}
         initial="initial"
-        animate="animate"
+        animate={isReady ? "animate" : "initial"}
         exit="exit"
         className="w-full max-w-[450px] px-8 pb-10 flex flex-col items-center pt-10"
       >

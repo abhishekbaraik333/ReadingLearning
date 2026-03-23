@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { useOnboarding } from "@/context/OnboardingContext";
 import ProgressBar from "@/components/ProgressBar";
+import { useImagePreload } from "@/hooks/useImagePreload";
 
 const pageVariants = {
   initial: (direction) => ({
@@ -25,6 +26,7 @@ const pageVariants = {
 export default function ChildGender() {
   const router = useRouter();
   const { direction, updateDirection, childGender, setChildGender } = useOnboarding();
+  const isReady = useImagePreload("/kidSafe.webp");
 
   const options = [
     "Boy",
@@ -65,7 +67,7 @@ export default function ChildGender() {
         custom={direction}
         variants={pageVariants}
         initial="initial"
-        animate="animate"
+        animate={isReady ? "animate" : "initial"}
         exit="exit"
         className="w-full max-w-[450px] px-5 pb-20 flex flex-col items-center pt-8"
       >

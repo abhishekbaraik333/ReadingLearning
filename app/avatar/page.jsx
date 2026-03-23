@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { useOnboarding } from "@/context/OnboardingContext";
 import ProgressBar from "@/components/ProgressBar";
+import { useImagePreload } from "@/hooks/useImagePreload";
 
 const pageVariants = {
   initial: (direction) => ({
@@ -31,6 +32,10 @@ const avatars = Array.from({ length: 12 }, (_, i) => ({
 export default function AvatarSelection() {
   const router = useRouter();
   const { direction, updateDirection, selectedAvatar, setSelectedAvatar } = useOnboarding();
+  
+  // Preload all 12 avatar thumbnails
+  const avatarSources = avatars.map(a => a.src);
+  const isReady = useImagePreload(avatarSources);
 
   const handleBack = () => {
     updateDirection(-1);
@@ -65,7 +70,7 @@ export default function AvatarSelection() {
         custom={direction}
         variants={pageVariants}
         initial="initial"
-        animate="animate"
+        animate={isReady ? "animate" : "initial"}
         exit="exit"
         className="w-full max-w-[450px] px-8 pb-10 flex flex-col items-center pt-8"
       >

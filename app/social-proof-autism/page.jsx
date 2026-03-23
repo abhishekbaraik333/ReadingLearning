@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { useOnboarding } from "@/context/OnboardingContext";
 import ProgressBar from "@/components/ProgressBar";
+import { useImagePreload } from "@/hooks/useImagePreload";
 import useEmblaCarousel from 'embla-carousel-react';
 import Autoplay from 'embla-carousel-autoplay';
 
@@ -50,6 +51,7 @@ const autismReviews = [
 export default function AutismSocialProof() {
   const router = useRouter();
   const { direction, updateDirection } = useOnboarding();
+  const isReady = useImagePreload("/VlQPe_m3.webp");
   
   const [emblaRef] = useEmblaCarousel(
     { 
@@ -87,7 +89,7 @@ export default function AutismSocialProof() {
         custom={direction}
         variants={pageVariants}
         initial="initial"
-        animate="animate"
+        animate={isReady ? "animate" : "initial"}
         exit="exit"
         className="w-full max-w-[450px] flex flex-col items-center pt-8 flex-grow"
       >
@@ -130,7 +132,7 @@ export default function AutismSocialProof() {
         custom={direction}
         variants={pageVariants}
         initial="initial"
-        animate="animate"
+        animate={isReady ? "animate" : "initial"}
         exit="exit"
         className="w-full max-w-[450px] px-8 sticky bottom-2 z-50 mt-auto"
       >

@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { useOnboarding } from "@/context/OnboardingContext";
+import { useImagePreload } from "@/hooks/useImagePreload";
 
 const pageVariants = {
   initial: (direction) => ({
@@ -25,6 +26,12 @@ export default function Woohoo() {
   const router = useRouter();
   const { childName, childGender, selectedAvatar, direction, updateDirection } = useOnboarding();
 
+  const avatarId = selectedAvatar || 1;
+  const isReady = useImagePreload([
+    `/avatar${avatarId}first.webp`,
+    `/avatar${avatarId}second.webp`
+  ]);
+
   // Helper to get correct pronoun based on gender
   const getPronoun = () => {
     if (childGender === "Boy") return "his";
@@ -43,7 +50,7 @@ export default function Woohoo() {
         custom={direction}
         variants={pageVariants}
         initial="initial"
-        animate="animate"
+        animate={isReady ? "animate" : "initial"}
         exit="exit"
         className="w-full max-w-[450px] px-8 flex flex-col items-center flex-grow"
       >
@@ -86,7 +93,7 @@ export default function Woohoo() {
         custom={direction}
         variants={pageVariants}
         initial="initial"
-        animate="animate"
+        animate={isReady ? "animate" : "initial"}
         exit="exit"
         className="w-full max-w-[450px] px-8 sticky bottom-2 z-50 mt-auto"
       >

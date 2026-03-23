@@ -32,8 +32,8 @@ export default function ValueProposition() {
   };
 
   return (
-    <div className="w-full flex flex-col items-center overflow-x-hidden">
-      <header className="w-full max-w-[450px] flex flex-col items-center pt-4 pb-0 px-5 relative">
+    <div className="w-full flex flex-col items-center min-h-screen relative overflow-x-clip">
+      <header className="w-full max-w-[450px] flex flex-col items-center pt-4 pb-0 px-5 relative shrink-0">
         <button 
           className="absolute left-2 top-4 text-purple-dark flex items-center justify-center w-10 h-10 rounded-full hover:bg-black/5 transition-colors" 
           onClick={handleBack}
@@ -55,10 +55,10 @@ export default function ValueProposition() {
         initial="initial"
         animate="animate"
         exit="exit"
-        className="w-full max-w-[450px] px-5 pb-20 flex flex-col items-center"
+        className="w-full max-w-[450px] px-5 flex flex-col items-center flex-grow"
       >
         <div className="flex items-center gap-6 mb-10 text-purple-primary">
-          <img src="./research-backed.webp" className="max-w-[300px]" alt="" />
+          <img src="./research-backed.webp" className="max-w-[265px]" alt="" />
         </div>
 
         <h1 className="text-2xl font-extrabold mb-10 text-center text-purple-dark leading-tight">
@@ -66,7 +66,7 @@ export default function ValueProposition() {
           training or prep required!
         </h1>
 
-        <p className="text-center text-black leading-relaxed text-xl mb-16">
+        <p className="text-center text-black leading-relaxed text-[18px] mb-16">
           Our program is based on the best of the Science of Reading and empowers parents to teach their child how to read.<br /><br />
           It will work for your child as well!
         </p>
@@ -77,10 +77,19 @@ export default function ValueProposition() {
           </div>
           <p className="text-md italic text-black font-medium text-center">Join <span className="text-purple-dark font-bold">  more than 1.5 million parents</span> <br /> teaching their kids to read!</p>
         </div>
+      </motion.main>
 
+      <motion.div
+        custom={direction}
+        variants={pageVariants}
+        initial="initial"
+        animate="animate"
+        exit="exit"
+        className="w-full max-w-[450px] px-8 sticky bottom-2 z-50 mt-auto"
+      >
         <motion.button 
           whileTap={{ scale: 0.98 }}
-          className="w-full max-w-[480px] h-16 bg-purple-primary text-white rounded-full text-xl font-extrabold shadow-lg shadow-purple-primary/20 hover:scale-[1.01] transition-all"
+          className="w-full max-w-[480px] h-16 bg-purple-primary text-white rounded-full text-lg font-extrabold transition-all"
           onClick={() => {
             updateDirection(1);
             router.push('/reason');
@@ -88,7 +97,7 @@ export default function ValueProposition() {
         >
           Continue
         </motion.button>
-      </motion.main>
+      </motion.div>
     </div>
   );
 }

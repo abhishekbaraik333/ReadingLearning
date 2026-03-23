@@ -62,8 +62,8 @@ export default function AllPlans() {
   const currentPlan = plans.find(p => p.id === selectedPlan);
 
   return (
-    <div className="w-full flex flex-col items-center bg-white overflow-x-hidden min-h-screen">
-      <header className="w-full max-w-[450px] flex flex-col items-center pt-4 pb-0 px-5 relative">
+    <div className="w-full flex flex-col items-center bg-white min-h-screen relative overflow-x-clip">
+      <header className="w-full max-w-[450px] flex flex-col items-center pt-4 pb-0 px-5 relative shrink-0">
         <button 
           className="absolute left-2 top-4 text-purple-dark flex items-center justify-center w-10 h-10 rounded-full hover:bg-black/5 transition-colors" 
           onClick={handleBack}
@@ -84,7 +84,7 @@ export default function AllPlans() {
         initial="initial"
         animate="animate"
         exit="exit"
-        className="w-full max-w-[450px] px-8 pb-10 flex flex-col items-center pt-10"
+        className="w-full max-w-[450px] px-8 flex flex-col items-center pt-10 flex-grow"
       >
         <h1 className="text-[24px] font-bold text-[#221750] text-center mb-10 font-quicksand leading-tight">
           Choose your plan
@@ -162,8 +162,17 @@ export default function AllPlans() {
             </div>
           ))}
         </div>
+      </motion.main>
 
-        <div className="w-full flex flex-col items-center space-y-6 mt-auto">
+      <motion.div
+        custom={direction}
+        variants={pageVariants}
+        initial="initial"
+        animate="animate"
+        exit="exit"
+        className="w-full max-w-[450px] px-8 sticky bottom-2 z-50 mt-auto flex flex-col items-center"
+      >
+        <div className="w-full flex flex-col items-center space-y-6">
           <img 
             src="/moneyback.webp" 
             alt="Money Back Guarantee" 
@@ -173,7 +182,7 @@ export default function AllPlans() {
           <div className="w-full flex flex-col items-center space-y-4">
             <motion.button 
               whileTap={{ scale: 0.98 }}
-              className="w-full h-16 bg-purple-primary text-white rounded-full text-xl font-extrabold shadow-lg shadow-purple-primary/20 hover:scale-[1.01] transition-all"
+              className="w-full h-16 bg-purple-primary text-white rounded-full text-lg font-extrabold transition-all"
               onClick={handleContinue}
             >
               Continue
@@ -183,7 +192,7 @@ export default function AllPlans() {
             </span>
           </div>
         </div>
-      </motion.main>
+      </motion.div>
     </div>
   );
 }

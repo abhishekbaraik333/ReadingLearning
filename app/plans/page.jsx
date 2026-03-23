@@ -32,8 +32,8 @@ export default function PlansOffer() {
   };
 
   return (
-    <div className="w-full flex flex-col items-center bg-white overflow-x-hidden min-h-screen">
-      <header className="w-full max-w-[450px] flex justify-center pt-8 mb-12">
+    <div className="w-full flex flex-col items-center bg-white min-h-screen relative overflow-x-clip">
+      <header className="w-full max-w-[450px] flex justify-center pt-8 mb-12 shrink-0">
         <img src="/VlQPe_m3.webp" alt="Reading.com" className="h-7 object-contain" />
       </header>
 
@@ -43,7 +43,7 @@ export default function PlansOffer() {
         initial="initial"
         animate="animate"
         exit="exit"
-        className="w-full max-w-[450px] px-8 pb-10 flex flex-col items-center"
+        className="w-full max-w-[450px] px-8 flex flex-col items-center flex-grow"
       >
         <h1 className="text-[24px] font-bold text-[#221750] text-center mb-8 px-4 leading-tight font-quicksand">
           Take {childName || 'your child'} from struggling to confident reader.
@@ -61,7 +61,16 @@ export default function PlansOffer() {
           <span>67 interactive books</span>
           <span>And so much more...</span>
         </div>
+      </motion.main>
 
+      <motion.div
+        custom={direction}
+        variants={pageVariants}
+        initial="initial"
+        animate="animate"
+        exit="exit"
+        className="w-full max-w-[450px] px-8 sticky bottom-2 z-50 mt-auto flex flex-col items-center"
+      >
         <div className="w-full flex flex-col items-center space-y-4">
           <div className="text-center">
             <p className="text-[12px] font-bold text-[#FF5B5B] uppercase tracking-wider mb-1">
@@ -75,7 +84,7 @@ export default function PlansOffer() {
 
           <motion.button 
             whileTap={{ scale: 0.98 }}
-            className="w-full h-16 bg-purple-primary text-white rounded-full text-xl font-extrabold shadow-lg shadow-purple-primary/20 hover:scale-[1.01] transition-all"
+            className="w-full h-16 bg-purple-primary text-white rounded-full text-lg font-extrabold transition-all"
             onClick={handleContinue}
           >
             Continue with discount
@@ -91,7 +100,7 @@ export default function PlansOffer() {
             View all plans
           </button>
         </div>
-      </motion.main>
+      </motion.div>
     </div>
   );
 }

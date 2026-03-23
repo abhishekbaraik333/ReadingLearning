@@ -60,7 +60,7 @@ export default function AgeSelection() {
             <motion.button
               key={age}
               whileTap={{ scale: 0.98 }}
-              className={`h-20 rounded-xl text-lg font-semibold flex items-center justify-center transition-all duration-200 border-2 border-solid ${
+              className={`h-20 rounded-xl text-[16px] font-semibold flex items-center justify-center transition-all duration-200 border-2 border-solid ${
                 selectedAge === age 
                   ? 'bg-purple-primary text-white border-purple-primary' 
                   : 'bg-blue-unselected text-purple-dark border-[#cbd5e1]'
@@ -76,12 +76,12 @@ export default function AgeSelection() {
           Tip: You can add more profiles later (up to 3 children)
         </div>
 
-        <div className="flex gap-10 mb-12 items-start justify-center flex-wrap">
+        <div className="flex gap-10 items-start justify-center flex-wrap">
           <img src="/TKhB_Tsn.webp" className="object-fit w-[450px]" alt="" />
         </div>
 
-        <div className="flex flex-col items-center text-center w-full border-t border-gray-100 pt-8">
-          <div className="text-accent-gold text-[22px] mb-2 tracking-[4px]">★★★★★</div>
+        <div className="flex flex-col items-center text-center w-full">
+          <div className="text-accent-gold text-[20px] mb-2 tracking-[4px]">★★★★★</div>
           <p className="text-[16px] font-normal text-black opacity-100 tracking-[0.5px]">5-STAR REVIEWS <br /> FROM 20,000+ PARENTS & TEACHERS</p>
         </div>
       </motion.main>

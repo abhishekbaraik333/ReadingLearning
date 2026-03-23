@@ -39,8 +39,8 @@ export default function ChildName() {
   };
 
   return (
-    <div className="w-full flex flex-col items-center overflow-x-hidden min-h-screen">
-      <header className="w-full max-w-[450px] flex flex-col items-center pt-4 pb-0 px-5 relative">
+    <div className="w-full flex flex-col items-center min-h-screen relative overflow-x-clip">
+      <header className="w-full max-w-[450px] flex flex-col items-center pt-4 pb-0 px-5 relative shrink-0">
         <button 
           className="absolute left-2 top-4 text-purple-dark flex items-center justify-center w-10 h-10 rounded-full hover:bg-black/5 transition-colors" 
           onClick={handleBack}
@@ -62,7 +62,7 @@ export default function ChildName() {
         initial="initial"
         animate="animate"
         exit="exit"
-        className="w-full max-w-[450px] px-8 pb-10 flex flex-col items-center pt-8 grow"
+        className="w-full max-w-[450px] px-8 flex flex-col items-center pt-8 flex-grow"
       >
         <h1 className="text-[24px] font-bold mb-10 text-center text-[#221750] leading-tight px-4 font-quicksand">
           What is your child's first name or nickname?
@@ -95,22 +95,29 @@ export default function ChildName() {
             </p>
           </div>
         </div>
-
-        <div className="mt-auto w-full pt-10">
-          <motion.button 
-            whileTap={childName.trim().length > 0 ? { scale: 0.98 } : {}}
-            disabled={childName.trim().length === 0}
-            className={`w-full h-16 rounded-full text-xl font-extrabold transition-all duration-300 ${
-              childName.trim().length > 0
-                ? 'bg-purple-primary text-white shadow-lg shadow-purple-primary/20 hover:scale-[1.01]'
-                : 'bg-purple-primary/40 text-white cursor-not-allowed'
-            }`}
-            onClick={handleContinue}
-          >
-            Continue
-          </motion.button>
-        </div>
       </motion.main>
+
+      <motion.div
+        custom={direction}
+        variants={pageVariants}
+        initial="initial"
+        animate="animate"
+        exit="exit"
+        className="w-full max-w-[450px] px-8 sticky bottom-2 z-50 mt-auto"
+      >
+        <motion.button 
+          whileTap={childName.trim().length > 0 ? { scale: 0.98 } : {}}
+          disabled={childName.trim().length === 0}
+          className={`w-full h-16 rounded-full text-lg font-extrabold transition-all duration-300 ${
+            childName.trim().length > 0
+              ? 'bg-purple-primary text-white hover:scale-[1.01]'
+              : 'bg-purple-primary/40 text-white cursor-not-allowed'
+          }`}
+          onClick={handleContinue}
+        >
+          Continue
+        </motion.button>
+      </motion.div>
     </div>
   );
 }

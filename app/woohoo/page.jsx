@@ -38,14 +38,14 @@ export default function Woohoo() {
   };
 
   return (
-    <div className="w-full min-h-screen flex flex-col items-center bg-white overflow-x-hidden pt-12">
+    <div className="w-full flex flex-col items-center bg-white min-h-screen relative overflow-x-clip pt-12">
       <motion.main
         custom={direction}
         variants={pageVariants}
         initial="initial"
         animate="animate"
         exit="exit"
-        className="w-full max-w-[450px] px-8 pb-10 flex flex-col items-center"
+        className="w-full max-w-[450px] px-8 flex flex-col items-center flex-grow"
       >
         <h1 className="text-[28px] font-bold text-[#221750] mb-8 font-quicksand text-center">
           Woohoo!
@@ -80,17 +80,24 @@ export default function Woohoo() {
             className="w-full h-auto object-cover"
           />
         </div>
-
-        <div className="w-full mt-auto">
-          <motion.button 
-            whileTap={{ scale: 0.98 }}
-            className="w-full h-16 bg-purple-primary text-white rounded-full text-xl font-extrabold shadow-lg shadow-purple-primary/20 hover:scale-[1.01] transition-all"
-            onClick={handleContinue}
-          >
-            Continue
-          </motion.button>
-        </div>
       </motion.main>
+
+      <motion.div
+        custom={direction}
+        variants={pageVariants}
+        initial="initial"
+        animate="animate"
+        exit="exit"
+        className="w-full max-w-[450px] px-8 sticky bottom-2 z-50 mt-auto"
+      >
+        <motion.button 
+          whileTap={{ scale: 0.98 }}
+          className="w-full h-16 bg-purple-primary text-white rounded-full text-lg font-extrabold transition-all"
+          onClick={handleContinue}
+        >
+          Continue
+        </motion.button>
+      </motion.div>
     </div>
   );
 }

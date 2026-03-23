@@ -118,7 +118,7 @@ export default function Personalizing() {
             return (
               <div key={step.id} className="w-full flex flex-col gap-2">
                 <div className="flex justify-between items-center w-full px-1">
-                  <span className="text-[16px] font-bold text-black font-quicksand leading-tight max-w-[85%]">
+                  <span className="text-[14px] font-bold text-black font-quicksand leading-tight max-w-[85%]">
                     {step.label}
                   </span>
                   <div className="flex items-center gap-2">

@@ -37,8 +37,8 @@ export default function Personalize() {
   };
 
   return (
-    <div className="w-full flex flex-col items-center overflow-x-hidden">
-      <header className="w-full max-w-[450px] flex flex-col items-center pt-4 pb-0 px-5 relative">
+    <div className="w-full flex flex-col items-center min-h-screen relative overflow-x-clip">
+      <header className="w-full max-w-[450px] flex flex-col items-center pt-4 pb-0 px-5 relative shrink-0">
         <button 
           className="absolute left-2 top-4 text-purple-dark flex items-center justify-center w-10 h-10 rounded-full hover:bg-black/5 transition-colors" 
           onClick={handleBack}
@@ -60,7 +60,7 @@ export default function Personalize() {
         initial="initial"
         animate="animate"
         exit="exit"
-        className="w-full max-w-[450px] px-8 pb-20 flex flex-col items-center pt-8"
+        className="w-full max-w-[450px] px-8 flex flex-col items-center pt-8 flex-grow"
       >
         <h1 className="text-[26px] font-bold text-[#221750] text-center leading-tight mb-4 px-2">
           Just a few more questions to personalize your child's profile!
@@ -81,15 +81,24 @@ export default function Personalize() {
             className="w-full max-w-[340px] object-contain rounded-2xl shadow-xl shadow-black/5"
           />
         </div>
+      </motion.main>
 
+      <motion.div
+        custom={direction}
+        variants={pageVariants}
+        initial="initial"
+        animate="animate"
+        exit="exit"
+        className="w-full max-w-[450px] px-8 sticky bottom-2 z-50 mt-auto"
+      >
         <motion.button 
           whileTap={{ scale: 0.98 }}
-          className="w-full h-16 bg-purple-primary text-white rounded-full text-xl font-extrabold shadow-lg shadow-purple-primary/20 hover:scale-[1.01] transition-all"
+          className="w-full h-16 bg-purple-primary text-white rounded-full text-lg font-extrabold transition-all"
           onClick={handleContinue}
         >
           Continue
         </motion.button>
-      </motion.main>
+      </motion.div>
     </div>
   );
 }

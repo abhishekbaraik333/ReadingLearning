@@ -17,7 +17,7 @@ module.exports = {
         'blue-unselected': '#eff4fc',
         'tip-bg': '#e5e1ff',
         'app-bg': '#f8faff',
-        'accent-gold': '#ff9d2b',
+        'accent-gold': '#F19A2C',
       },
       fontWeight: {
         '900': '900',

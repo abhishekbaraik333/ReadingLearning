@@ -45,15 +45,14 @@ export default function SaveProgress() {
   };
 
   return (
-    <div className="w-full flex flex-col items-center bg-white overflow-x-hidden min-h-screen pt-12">
-
+    <div className="w-full flex flex-col items-center bg-white min-h-screen relative overflow-x-clip pt-12">
       <motion.main
         custom={direction}
         variants={pageVariants}
         initial="initial"
         animate="animate"
         exit="exit"
-        className="w-full max-w-[450px] px-8 pb-10 flex flex-col items-center pt-6"
+        className="w-full max-w-[450px] px-8 flex flex-col items-center pt-6 flex-grow"
       >
         <img 
           src="/kidSafe.webp" 
@@ -124,22 +123,29 @@ export default function SaveProgress() {
             <p className="text-[14px] text-slate-600 font-semibold font-quicksand">Access to exclusive printables</p>
           </div>
         </div>
-
-        <div className="w-full mt-auto">
-          <motion.button 
-            whileTap={{ scale: 0.98 }}
-            disabled={!parentEmail.includes('@')}
-            className={`w-full h-16 rounded-full text-xl font-extrabold transition-all duration-300 ${
-              parentEmail.includes('@')
-                ? 'bg-purple-primary text-white shadow-lg shadow-purple-primary/20 hover:scale-[1.01]'
-                : 'bg-purple-primary/40 text-white cursor-not-allowed'
-            }`}
-            onClick={handleContinue}
-          >
-            Save and Continue
-          </motion.button>
-        </div>
       </motion.main>
+
+      <motion.div
+        custom={direction}
+        variants={pageVariants}
+        initial="initial"
+        animate="animate"
+        exit="exit"
+        className="w-full max-w-[450px] px-8 sticky bottom-2 z-50 mt-auto"
+      >
+        <motion.button 
+          whileTap={{ scale: 0.98 }}
+          disabled={!parentEmail.includes('@')}
+          className={`w-full h-16 rounded-full text-lg font-extrabold transition-all duration-300 ${
+            parentEmail.includes('@')
+              ? 'bg-purple-primary text-white hover:scale-[1.01]'
+              : 'bg-purple-primary/40 text-white cursor-not-allowed'
+          }`}
+          onClick={handleContinue}
+        >
+          Save and Continue
+        </motion.button>
+      </motion.div>
     </div>
   );
 }

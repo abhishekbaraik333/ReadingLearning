@@ -145,10 +145,10 @@ const contentMap = {
 export default function SocialProof() {
   const router = useRouter();
   const { direction, updateDirection, selectedReason } = useOnboarding();
-  
+
   // Fallback to default if reason is not mapped (or use First option)
   const currentContent = contentMap[selectedReason] || contentMap["I'm preparing my child for school"];
-  
+
   const [emblaRef] = useEmblaCarousel({ loop: true, align: 'center' }, [Autoplay({ delay: 4000, stopOnInteraction: false })]);
 
   const handleBack = () => {
@@ -157,10 +157,10 @@ export default function SocialProof() {
   };
 
   return (
-    <div className="w-full flex flex-col items-center overflow-x-hidden">
-      <header className="w-full max-w-[450px] flex flex-col items-center pt-4 pb-0 px-5 relative">
-        <button 
-          className="absolute left-2 top-4 text-purple-dark flex items-center justify-center w-10 h-10 rounded-full hover:bg-black/5 transition-colors" 
+    <div className="w-full flex flex-col items-center bg-white min-h-screen relative overflow-x-clip">
+      <header className="w-full max-w-[450px] flex flex-col items-center pt-4 pb-0 px-5 relative shrink-0">
+        <button
+          className="absolute left-2 top-4 text-purple-dark flex items-center justify-center w-10 h-10 rounded-full hover:bg-black/5 transition-colors"
           onClick={handleBack}
           aria-label="Back"
         >
@@ -180,7 +180,7 @@ export default function SocialProof() {
         initial="initial"
         animate="animate"
         exit="exit"
-        className="w-full max-w-[450px] px-5 pb-20 flex flex-col items-center"
+        className="w-full max-w-[450px] px-5 flex flex-col items-center flex-grow"
       >
         <div className="text-center mb-4 mt-4">
           <h1 className="text-[28px] font-extrabold text-[#221750] leading-tight mb-1">
@@ -201,7 +201,7 @@ export default function SocialProof() {
             <div className="embla__container flex">
               {currentContent.reviews.map((review, index) => (
                 <div key={index} className="embla__slide flex-[0_0_90%] min-w-0 px-2">
-                  <div className="bg-[#221750] p-6 flex flex-col text-white rounded-[40px] my-4 shadow-xl">
+                  <div className="bg-[#221750] p-6 flex flex-col text-white rounded-[40px] my-4">
                     <h3 className="text-[22px] font-bold mb-2 leading-snug">
                       "{review.title}"
                     </h3>
@@ -220,10 +220,19 @@ export default function SocialProof() {
             </div>
           </div>
         </div>
+      </motion.main>
 
-        <motion.button 
+      <motion.div
+        custom={direction}
+        variants={pageVariants}
+        initial="initial"
+        animate="animate"
+        exit="exit"
+        className="w-full max-w-[450px] px-5 sticky bottom-2 z-50 mt-auto"
+      >
+        <motion.button
           whileTap={{ scale: 0.98 }}
-          className="w-full h-16 bg-purple-primary text-white rounded-full text-xl font-extrabold shadow-lg shadow-purple-primary/20 hover:scale-[1.01] transition-all"
+          className="w-full h-16 bg-purple-primary text-white rounded-full text-lg font-extrabold transition-all"
           onClick={() => {
             updateDirection(1);
             router.push("/milestone");
@@ -231,7 +240,7 @@ export default function SocialProof() {
         >
           Continue
         </motion.button>
-      </motion.main>
+      </motion.div>
     </div>
   );
 }

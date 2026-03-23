@@ -101,7 +101,7 @@ export default function LearningDifferences() {
             <motion.button
               key={option}
               whileTap={{ scale: 0.98 }}
-              className={`min-h-[64px] py-4 px-8 rounded-full text-[18px] font-semibold flex items-center justify-center transition-all duration-200 border-2 border-solid leading-snug ${
+              className={`min-h-[64px] py-4 px-8 rounded-full text-[16px] font-semibold flex items-center justify-center transition-all duration-200 border-2 border-solid leading-snug ${
                 learningDifference === option 
                   ? 'bg-purple-primary text-white border-purple-primary shadow-lg shadow-purple-primary/20' 
                   : 'bg-blue-unselected text-purple-dark border-[#cbd5e1]'

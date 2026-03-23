@@ -48,8 +48,8 @@ export default function FullSentences() {
   };
 
   return (
-    <div className="w-full flex flex-col items-center bg-white overflow-x-hidden min-h-screen">
-      <header className="w-full max-w-[450px] flex flex-col items-center pt-4 pb-0 px-5 relative">
+    <div className="w-full flex flex-col items-center bg-white min-h-screen relative overflow-x-clip">
+      <header className="w-full max-w-[450px] flex flex-col items-center pt-4 pb-0 px-5 relative shrink-0">
         <button 
           className="absolute left-2 top-4 text-purple-dark flex items-center justify-center w-10 h-10 rounded-full hover:bg-black/5 transition-colors" 
           onClick={handleBack}
@@ -71,7 +71,7 @@ export default function FullSentences() {
         initial="initial"
         animate="animate"
         exit="exit"
-        className="w-full max-w-[450px] px-8 pb-10 flex flex-col items-center pt-6"
+        className="w-full max-w-[450px] px-8 flex flex-col items-center pt-6 flex-grow"
       >
         <div className="flex flex-col items-center mb-6">
           <span className="text-[12px] font-medium text-black tracking-widest uppercase mb-4 border-b-[1px] border-black pb-0.5">
@@ -82,7 +82,7 @@ export default function FullSentences() {
           </h1>
         </div>
 
-        <p className="text-[16px] text-[#221750] font-medium text-center mb-10 leading-relaxed font-quicksand px-2">
+        <p className="text-[18px] text-[#221750] font-medium text-center mb-10 leading-relaxed font-quicksand px-2">
           Before you know it, <span className="font-medium">{childName || 'your child'}</span> will be decoding words and reading full sentences on {getPossessive()} own.
         </p>
 
@@ -91,24 +91,31 @@ export default function FullSentences() {
           alt="Full sentences reading" 
           className="w-full max-w-[400px] h-auto object-contain mb-16 rounded-2xl shadow-md border border-slate-100"
         />
-
-        <div className="w-full space-y-4 mt-auto">
-          <motion.button 
-            whileTap={{ scale: 0.98 }}
-            className="w-full h-16 bg-purple-primary text-white rounded-full text-xl font-extrabold shadow-lg shadow-purple-primary/20 hover:scale-[1.01] transition-all"
-            onClick={handleContinue}
-          >
-            Continue
-          </motion.button>
-          
-          <button 
-            className="w-full py-2 text-[14px] text-slate-700 font-bold font-quicksand hover:text-slate-800 transition-colors"
-            onClick={handleSkip}
-          >
-            Skip
-          </button>
-        </div>
       </motion.main>
+
+      <motion.div
+        custom={direction}
+        variants={pageVariants}
+        initial="initial"
+        animate="animate"
+        exit="exit"
+        className="w-full max-w-[450px] px-8 sticky bottom-2 z-50 mt-auto space-y-4"
+      >
+        <motion.button 
+          whileTap={{ scale: 0.98 }}
+          className="w-full h-16 bg-purple-primary text-white rounded-full text-lg font-extrabold transition-all"
+          onClick={handleContinue}
+        >
+          Continue
+        </motion.button>
+        
+        <button 
+          className="w-full py-2 text-[14px] text-slate-700 font-bold font-quicksand hover:text-slate-800 transition-colors"
+          onClick={handleSkip}
+        >
+          Skip
+        </button>
+      </motion.div>
     </div>
   );
 }

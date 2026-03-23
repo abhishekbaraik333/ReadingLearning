@@ -26,7 +26,7 @@ const pageVariants = {
 export default function ValueProposition() {
   const router = useRouter();
   const { direction, updateDirection } = useOnboarding();
-  const isReady = useImagePreload(["./research-backed.webp", "./join.webp"]);
+  const isReady = useImagePreload(["./research-backed.webp", "./Join.webp"]);
 
   const handleBack = () => {
     updateDirection(-1); // Moving backward
@@ -75,7 +75,7 @@ export default function ValueProposition() {
 
         <div className="flex flex-col items-center mb-4 mt-36 md:mt-56">
           <div className="flex">
-            <img src="./join.webp" className="w-[160px]" alt=""/>
+            <img src="./Join.webp" className="w-[160px]" alt=""/>
           </div>
           <p className="text-sm italic text-black font-medium text-center">Join <span className="text-purple-dark font-bold">  more than 1.5 million parents</span> <br /> teaching their kids to read!</p>
         </div>

@@ -180,7 +180,7 @@ export default function SocialProof() {
         initial="initial"
         animate="animate"
         exit="exit"
-        className="w-full max-w-[450px] px-5 flex flex-col items-center flex-grow"
+        className="w-full max-w-[450px] flex flex-col items-center flex-grow"
       >
         <div className="text-center mb-4 mt-4">
           <h1 className="text-[28px] font-extrabold text-[#221750] leading-tight mb-1">

@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { useOnboarding } from "@/context/OnboardingContext";
 import ProgressBar from "@/components/ProgressBar";
+import { useImagePreload } from "@/hooks/useImagePreload";
 
 
 const pageVariants = {
@@ -26,6 +27,14 @@ const pageVariants = {
 export default function Congrats() {
   const router = useRouter();
   const { direction, updateDirection } = useOnboarding();
+  const isReady = useImagePreload([
+    "/congrats1.webp",
+    "/congrat2.webp",
+    "/congrats3.webp",
+    "/congrats4.webp",
+    "/congrats5.webp",
+    "/congrats6.webp"
+  ]);
 
   const handleBack = () => {
     updateDirection(-1);
@@ -70,7 +79,7 @@ export default function Congrats() {
         custom={direction}
         variants={pageVariants}
         initial="initial"
-        animate="animate"
+        animate={isReady ? "animate" : "initial"}
         exit="exit"
         className="w-full max-w-[450px] px-6 flex flex-col items-center pt-8 flex-grow"
       >
@@ -110,7 +119,7 @@ export default function Congrats() {
         custom={direction}
         variants={pageVariants}
         initial="initial"
-        animate="animate"
+        animate={isReady ? "animate" : "initial"}
         exit="exit"
         className="w-full max-w-[450px] px-8 sticky bottom-2 z-50 mt-auto"
       >

@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { useOnboarding } from "@/context/OnboardingContext";
 import ProgressBar from "@/components/ProgressBar";
+import { useImagePreload } from "@/hooks/useImagePreload";
 
 const pageVariants = {
   initial: (direction) => ({
@@ -25,6 +26,7 @@ const pageVariants = {
 export default function UnlockBooks() {
   const router = useRouter();
   const { childName, direction, updateDirection } = useOnboarding();
+  const isReady = useImagePreload("/books.webp");
 
   const handleBack = () => {
     updateDirection(-1);
@@ -63,7 +65,7 @@ export default function UnlockBooks() {
         custom={direction}
         variants={pageVariants}
         initial="initial"
-        animate="animate"
+        animate={isReady ? "animate" : "initial"}
         exit="exit"
         className="w-full max-w-[450px] px-8 flex flex-col items-center pt-6 flex-grow"
       >
@@ -83,10 +85,10 @@ export default function UnlockBooks() {
         <img 
           src="/books.webp" 
           alt="Unlocking interactive books" 
-          className="w-full max-w-[400px] h-auto object-contain mb-10"
+          className="w-full max-w-[360px] h-auto object-contain mb-10"
         />
 
-        <div className="bg-[#EBE7FF] rounded-[20px] p-6 mb-12 border border-[#DED4FF]">
+        <div className="bg-[#EBE7FF] rounded-[20px] p-2 mb-12 border border-[#DED4FF]">
           <p className="text-[14px] text-[#221750] font-medium text-center leading-snug font-quicksand">
             The phonics sliders are always just one tap away to help <span className="font-medium">{childName || 'your child'}</span> decode words.
           </p>
@@ -97,7 +99,7 @@ export default function UnlockBooks() {
         custom={direction}
         variants={pageVariants}
         initial="initial"
-        animate="animate"
+        animate={isReady ? "animate" : "initial"}
         exit="exit"
         className="w-full max-w-[450px] px-8 sticky bottom-2 z-50 mt-auto space-y-4"
       >

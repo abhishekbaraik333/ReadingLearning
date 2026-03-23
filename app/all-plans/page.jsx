@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { useOnboarding } from "@/context/OnboardingContext";
+import { useImagePreload } from "@/hooks/useImagePreload";
 
 const pageVariants = {
   initial: (direction) => ({
@@ -25,6 +26,7 @@ const pageVariants = {
 export default function AllPlans() {
   const router = useRouter();
   const { direction, updateDirection } = useOnboarding();
+  const isReady = useImagePreload("/moneyback.webp");
   const [selectedPlan, setSelectedPlan] = useState("Yearly");
 
   const handleBack = () => {
@@ -82,7 +84,7 @@ export default function AllPlans() {
         custom={direction}
         variants={pageVariants}
         initial="initial"
-        animate="animate"
+        animate={isReady ? "animate" : "initial"}
         exit="exit"
         className="w-full max-w-[450px] px-8 flex flex-col items-center pt-10 flex-grow"
       >
@@ -168,7 +170,7 @@ export default function AllPlans() {
         custom={direction}
         variants={pageVariants}
         initial="initial"
-        animate="animate"
+        animate={isReady ? "animate" : "initial"}
         exit="exit"
         className="w-full max-w-[450px] px-8 sticky bottom-2 z-50 mt-auto flex flex-col items-center"
       >

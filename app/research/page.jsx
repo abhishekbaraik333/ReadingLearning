@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { useOnboarding } from "@/context/OnboardingContext";
 import ProgressBar from "@/components/ProgressBar";
+import { useImagePreload } from "@/hooks/useImagePreload";
 
 const pageVariants = {
   initial: (direction) => ({
@@ -25,6 +26,7 @@ const pageVariants = {
 export default function ValueProposition() {
   const router = useRouter();
   const { direction, updateDirection } = useOnboarding();
+  const isReady = useImagePreload(["./research-backed.webp", "./join.webp"]);
 
   const handleBack = () => {
     updateDirection(-1); // Moving backward
@@ -53,7 +55,7 @@ export default function ValueProposition() {
         custom={direction}
         variants={pageVariants}
         initial="initial"
-        animate="animate"
+        animate={isReady ? "animate" : "initial"}
         exit="exit"
         className="w-full max-w-[450px] px-5 flex flex-col items-center flex-grow"
       >
@@ -67,15 +69,15 @@ export default function ValueProposition() {
         </h1>
 
         <p className="text-center text-black leading-relaxed text-[18px] mb-16">
-          Our program is based on the best of the Science of Reading and empowers parents to teach their child how to read.<br /><br />
-          It will work for your child as well!
+         Start with the pre-reading skills activities like our ABC Song and move on to the lessons as soon as they are ready.
+
         </p>
 
-        <div className="flex flex-col items-center mb-4 mt-24 ">
+        <div className="flex flex-col items-center mb-4 mt-36 md:mt-56">
           <div className="flex">
-            <img src="./join.webp" className="w-[200px]" alt=""/>
+            <img src="./join.webp" className="w-[160px]" alt=""/>
           </div>
-          <p className="text-md italic text-black font-medium text-center">Join <span className="text-purple-dark font-bold">  more than 1.5 million parents</span> <br /> teaching their kids to read!</p>
+          <p className="text-sm italic text-black font-medium text-center">Join <span className="text-purple-dark font-bold">  more than 1.5 million parents</span> <br /> teaching their kids to read!</p>
         </div>
       </motion.main>
 
@@ -83,7 +85,7 @@ export default function ValueProposition() {
         custom={direction}
         variants={pageVariants}
         initial="initial"
-        animate="animate"
+        animate={isReady ? "animate" : "initial"}
         exit="exit"
         className="w-full max-w-[450px] px-8 sticky bottom-2 z-50 mt-auto"
       >

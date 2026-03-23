@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { useOnboarding } from "@/context/OnboardingContext";
 import ProgressBar from "@/components/ProgressBar";
+import { useImagePreload } from "@/hooks/useImagePreload";
 
 const pageVariants = {
   initial: (direction) => ({
@@ -25,6 +26,7 @@ const pageVariants = {
 export default function Placement() {
   const router = useRouter();
   const { direction, updateDirection, selectedStatus } = useOnboarding();
+  const isReady = useImagePreload("/placement.webp");
 
   const handleBack = () => {
     updateDirection(-1);
@@ -64,7 +66,7 @@ export default function Placement() {
         custom={direction}
         variants={pageVariants}
         initial="initial"
-        animate="animate"
+        animate={isReady ? "animate" : "initial"}
         exit="exit"
         className="w-full max-w-[450px] px-8 flex flex-col items-center flex-grow"
       >
@@ -76,16 +78,16 @@ export default function Placement() {
           Complete our placement assessment once in the app to find the perfect starting lesson.
         </p>
 
-        <div className="w-full flex justify-center mb-10">
+        <div className="w-full flex justify-center mb-2">
           <img 
             src="/placement.webp" 
             alt="Placement Assessment" 
-            className="w-full max-w-[400px] object-contain"
+            className="w-full max-w-[320px] object-contain"
           />
         </div>
 
-        <div className="w-full bg-[#f0ebff] rounded-2xl p-6 mb-12">
-          <p className="text-[14px] text-center text-purple-dark/80 font-semibold leading-relaxed">
+        <div className="w-full bg-[#f0ebff] rounded-2xl p-2 mb-12">
+          <p className="text-[12px] text-center text-purple-dark/80 font-medium leading-relaxed">
             If starting from lesson 1, you'll still be unlocking and reading together your first book at lesson 10!
           </p>
         </div>
@@ -95,7 +97,7 @@ export default function Placement() {
         custom={direction}
         variants={pageVariants}
         initial="initial"
-        animate="animate"
+        animate={isReady ? "animate" : "initial"}
         exit="exit"
         className="w-full max-w-[450px] px-8 sticky bottom-2 z-50 mt-auto"
       >

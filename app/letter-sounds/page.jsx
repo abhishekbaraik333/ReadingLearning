@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { useOnboarding } from "@/context/OnboardingContext";
 import ProgressBar from "@/components/ProgressBar";
+import { useImagePreload } from "@/hooks/useImagePreload";
 
 const pageVariants = {
   initial: (direction) => ({
@@ -25,6 +26,7 @@ const pageVariants = {
 export default function LetterSounds() {
   const router = useRouter();
   const { childName, childGender, direction, updateDirection } = useOnboarding();
+  const isReady = useImagePreload("/letters.webp");
 
   const handleBack = () => {
     updateDirection(-1);
@@ -68,7 +70,7 @@ export default function LetterSounds() {
         custom={direction}
         variants={pageVariants}
         initial="initial"
-        animate="animate"
+        animate={isReady ? "animate" : "initial"}
         exit="exit"
         className="w-full max-w-[450px] px-8 flex flex-col items-center pt-6 flex-grow"
       >
@@ -88,10 +90,10 @@ export default function LetterSounds() {
         <img 
           src="/letters.webp" 
           alt="Phonics sliders" 
-          className="w-full max-w-[400px] h-auto object-contain mb-8 rounded-2xl shadow-md border border-slate-100"
+          className="w-full max-w-[400px] h-auto object-contain mb-3 rounded-2xl shadow-md border border-slate-100"
         />
 
-        <div className="bg-[#EBE7FF] rounded-[20px] p-6 mb-12 border border-[#DED4FF]">
+        <div className="bg-[#EBE7FF] rounded-[20px] p-2 mb-12 border border-[#DED4FF]">
           <p className="text-[14px] text-[#221750] font-medium text-center leading-snug font-quicksand">
             If <span className="font-medium">{childName || 'your child'}</span> already knows letter sounds, make sure to take the placement assessment with {getObj()} so {getSubj()} can start at a lesson that's right for {getObj()}.
           </p>
@@ -102,7 +104,7 @@ export default function LetterSounds() {
         custom={direction}
         variants={pageVariants}
         initial="initial"
-        animate="animate"
+        animate={isReady ? "animate" : "initial"}
         exit="exit"
         className="w-full max-w-[450px] px-8 sticky bottom-2 z-50 mt-auto space-y-4"
       >

@@ -4,6 +4,7 @@ import { useEffect, useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { useOnboarding } from "@/context/OnboardingContext";
+import { useImagePreload } from "@/hooks/useImagePreload";
 
 const pageVariants = {
   initial: { opacity: 0 },
@@ -14,6 +15,7 @@ const pageVariants = {
 export default function Personalizing() {
   const router = useRouter();
   const { childName, selectedReason, homeChallenge, selectedStatus, setTeacherRecommended } = useOnboarding();
+  const isReady = useImagePreload("/didyouknow.webp");
   const [percentages, setPercentages] = useState([0, 0, 0, 0]);
   const [complete, setComplete] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
@@ -105,7 +107,7 @@ export default function Personalizing() {
       <motion.div
         variants={pageVariants}
         initial="initial"
-        animate="animate"
+        animate={isReady ? "animate" : "initial"}
         className={`w-full max-w-[450px] flex flex-col items-center transition-all duration-300 ${showPopup ? 'blur-sm brightness-90 grayscale-[0.2]' : ''}`}
       >
         <h1 className="text-[26px] font-bold text-[#221750] mb-10 font-quicksand text-center">

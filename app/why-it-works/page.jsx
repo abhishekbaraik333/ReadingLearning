@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { useOnboarding } from "@/context/OnboardingContext";
 import ProgressBar from "@/components/ProgressBar";
+import { useImagePreload } from "@/hooks/useImagePreload";
 
 const pageVariants = {
   initial: (direction) => ({
@@ -25,6 +26,7 @@ const pageVariants = {
 export default function WhyItWorks() {
   const router = useRouter();
   const { direction, updateDirection } = useOnboarding();
+  const isReady = useImagePreload("/whyworks.webp");
 
   const handleBack = () => {
     updateDirection(-1);
@@ -63,11 +65,11 @@ export default function WhyItWorks() {
         custom={direction}
         variants={pageVariants}
         initial="initial"
-        animate="animate"
+        animate={isReady ? "animate" : "initial"}
         exit="exit"
-        className="w-full max-w-[450px] px-8 flex flex-col items-center pt-10 flex-grow"
+        className="w-full max-w-[450px] px-8 flex flex-col items-center pt-5 flex-grow"
       >
-        <h1 className="text-[24px] font-bold text-[#221750] text-center mb-10 font-quicksand leading-tight">
+        <h1 className="text-[24px] font-bold text-[#221750] text-center mb-5 font-quicksand leading-tight">
           Here is why Reading.com actually works
         </h1>
 
@@ -84,7 +86,7 @@ export default function WhyItWorks() {
         custom={direction}
         variants={pageVariants}
         initial="initial"
-        animate="animate"
+        animate={isReady ? "animate" : "initial"}
         exit="exit"
         className="w-full max-w-[450px] px-8 sticky bottom-2 z-50 mt-auto flex flex-col items-center"
       >

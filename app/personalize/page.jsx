@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { useOnboarding } from "@/context/OnboardingContext";
 import ProgressBar from "@/components/ProgressBar";
+import { useImagePreload } from "@/hooks/useImagePreload";
 
 const pageVariants = {
   initial: (direction) => ({
@@ -25,6 +26,7 @@ const pageVariants = {
 export default function Personalize() {
   const router = useRouter();
   const { direction, updateDirection } = useOnboarding();
+  const isReady = useImagePreload("/KidsLoveit.webp");
 
   const handleBack = () => {
     updateDirection(-1);
@@ -58,7 +60,7 @@ export default function Personalize() {
         custom={direction}
         variants={pageVariants}
         initial="initial"
-        animate="animate"
+        animate={isReady ? "animate" : "initial"}
         exit="exit"
         className="w-full max-w-[450px] px-8 flex flex-col items-center pt-8 flex-grow"
       >
@@ -78,7 +80,7 @@ export default function Personalize() {
           <img 
             src="/KidsLoveit.webp" 
             alt="Happy child using Reading.com" 
-            className="w-full max-w-[340px] object-contain rounded-2xl shadow-xl shadow-black/5"
+            className="w-full max-w-[360px] object-contain rounded-2xl shadow-xl shadow-black/5"
           />
         </div>
       </motion.main>
@@ -87,7 +89,7 @@ export default function Personalize() {
         custom={direction}
         variants={pageVariants}
         initial="initial"
-        animate="animate"
+        animate={isReady ? "animate" : "initial"}
         exit="exit"
         className="w-full max-w-[450px] px-8 sticky bottom-2 z-50 mt-auto"
       >

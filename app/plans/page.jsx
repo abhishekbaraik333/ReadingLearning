@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { useOnboarding } from "@/context/OnboardingContext";
+import { useImagePreload } from "@/hooks/useImagePreload";
 
 const pageVariants = {
   initial: (direction) => ({
@@ -24,6 +25,7 @@ const pageVariants = {
 export default function PlansOffer() {
   const router = useRouter();
   const { childName, direction, updateDirection } = useOnboarding();
+  const isReady = useImagePreload("/plans.webp");
 
   const handleContinue = () => {
     updateDirection(1);
@@ -41,12 +43,12 @@ export default function PlansOffer() {
         custom={direction}
         variants={pageVariants}
         initial="initial"
-        animate="animate"
+        animate={isReady ? "animate" : "initial"}
         exit="exit"
         className="w-full max-w-[450px] px-8 flex flex-col items-center flex-grow"
       >
         <h1 className="text-[24px] font-bold text-[#221750] text-center mb-8 px-4 leading-tight font-quicksand">
-          Take {childName || 'your child'} from struggling to confident reader.
+          Ready to teach {childName || 'your child'} how to read ?
         </h1>
 
         <img 
@@ -67,7 +69,7 @@ export default function PlansOffer() {
         custom={direction}
         variants={pageVariants}
         initial="initial"
-        animate="animate"
+        animate={isReady ? "animate" : "initial"}
         exit="exit"
         className="w-full max-w-[450px] px-8 sticky bottom-2 z-50 mt-auto flex flex-col items-center"
       >

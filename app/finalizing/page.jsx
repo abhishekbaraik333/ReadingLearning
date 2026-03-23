@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
+import { useImagePreload } from "@/hooks/useImagePreload";
 
 const pageVariants = {
   initial: { opacity: 0 },
@@ -12,6 +13,7 @@ const pageVariants = {
 
 export default function FinalizingPlan() {
   const router = useRouter();
+  const isReady = useImagePreload("/processing.webp");
   const [progress, setProgress] = useState(0);
   const [complete, setComplete] = useState(false);
 
@@ -52,7 +54,7 @@ export default function FinalizingPlan() {
       <motion.div
         variants={pageVariants}
         initial="initial"
-        animate="animate"
+        animate={isReady ? "animate" : "initial"}
         className="w-full max-w-[450px] flex flex-col items-center"
       >
         <h1 className="text-[24px] font-bold text-[#221750] mb-6 font-quicksand text-center">

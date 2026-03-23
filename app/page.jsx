@@ -4,6 +4,7 @@ import { useOnboarding } from "@/context/OnboardingContext";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import ProgressBar from "@/components/ProgressBar";
+import { useImagePreload } from "@/hooks/useImagePreload";
 
 const pageVariants = {
   initial: (direction) => ({
@@ -25,6 +26,7 @@ const pageVariants = {
 export default function AgeSelection() {
   const { selectedAge, setSelectedAge, direction, updateDirection } = useOnboarding();
   const router = useRouter();
+  const isReady = useImagePreload(["/VlQPe_m3.webp", "/TKhB_Tsn.webp"]);
 
   const ages = [
     "Under 3", "3", "3 ½",
@@ -49,7 +51,7 @@ export default function AgeSelection() {
         custom={direction}
         variants={pageVariants}
         initial="initial"
-        animate="animate"
+        animate={isReady ? "animate" : "initial"}
         exit="exit"
         className="w-full max-w-[450px] px-5 pb-16 flex flex-col items-center"
       >

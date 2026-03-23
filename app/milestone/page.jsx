@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { useOnboarding } from "@/context/OnboardingContext";
 import ProgressBar from "@/components/ProgressBar";
+import { useImagePreload } from "@/hooks/useImagePreload";
 
 const pageVariants = {
   initial: (direction) => ({
@@ -25,6 +26,7 @@ const pageVariants = {
 export default function Milestone() {
   const router = useRouter();
   const { direction, updateDirection } = useOnboarding();
+  const isReady = useImagePreload("/Learning_letters.webp");
 
   const handleBack = () => {
     updateDirection(-1);
@@ -53,11 +55,11 @@ export default function Milestone() {
         custom={direction}
         variants={pageVariants}
         initial="initial"
-        animate="animate"
+        animate={isReady ? "animate" : "initial"}
         exit="exit"
         className="w-full max-w-[450px] px-8 flex flex-col items-center flex-grow"
       >
-        <h1 className="text-[26px] font-bold text-[#221750] text-center leading-snug mt-8 mb-12">
+        <h1 className="text-[26px] font-bold text-[#221750] text-center leading-snug mt-8 mb-4">
           In just 10 short lessons, your child will be reading their first book!
         </h1>
 
@@ -65,7 +67,7 @@ export default function Milestone() {
           <img 
             src="/Learning_letters.webp" 
             alt="Learning Path" 
-            className="w-full max-w-[400px] object-contain"
+            className="w-full max-w-[375px] mx-auto object-contain"
           />
         </div>
       </motion.main>
@@ -74,7 +76,7 @@ export default function Milestone() {
         custom={direction}
         variants={pageVariants}
         initial="initial"
-        animate="animate"
+        animate={isReady ? "animate" : "initial"}
         exit="exit"
         className="w-full max-w-[450px] px-8 sticky bottom-2 z-50 mt-auto"
       >

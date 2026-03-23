@@ -83,10 +83,10 @@ export default function LessonsFoundation() {
         <img 
           src="/lessons.webp" 
           alt="15 minute phonics lessons" 
-          className="w-full max-w-[200px] h-auto object-contain mb-6"
+          className="w-full max-w-[150px] h-auto object-contain mb-3"
         />
 
-        <div className="bg-[#EBE7FF] rounded-[20px] p-6 mb-12 border border-[#DED4FF]">
+        <div className="bg-[#EBE7FF] rounded-[20px] p-2 mb-12 border border-[#DED4FF]">
           <p className="text-[14px] text-[#221750] font-medium text-center leading-snug font-quicksand">
             Research shows children learn best from educational apps when a caring grownup and child interact with a program together.
           </p>

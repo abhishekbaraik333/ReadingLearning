@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { useOnboarding } from "@/context/OnboardingContext";
 import ProgressBar from "@/components/ProgressBar";
+import { useImagePreload } from "@/hooks/useImagePreload";
 
 const pageVariants = {
   initial: (direction) => ({
@@ -25,6 +26,7 @@ const pageVariants = {
 export default function SaveProgress() {
   const router = useRouter();
   const { childName, childGender, parentEmail, setParentEmail, direction, updateDirection } = useOnboarding();
+  const isReady = useImagePreload(["/kidSafe.webp", "/join.webp"]);
 
   const handleBack = () => {
     updateDirection(-1);
@@ -50,7 +52,7 @@ export default function SaveProgress() {
         custom={direction}
         variants={pageVariants}
         initial="initial"
-        animate="animate"
+        animate={isReady ? "animate" : "initial"}
         exit="exit"
         className="w-full max-w-[450px] px-8 flex flex-col items-center pt-6 flex-grow"
       >
@@ -93,11 +95,11 @@ export default function SaveProgress() {
         </div>
 
         {/* Join Parents Section */}
-        <div className="w-full flex flex-col items-center mb-8">
+        <div className="w-full flex flex-col items-center mb-8 mt-4">
           <img 
             src="/join.webp" 
             alt="Parents joining" 
-            className="h-14 object-contain mb-2"
+            className="h-12 object-contain mb-2"
           />
           <p className="text-[14px] text-center text-[#221750] font-medium leading-tight px-4 italic">
             Join <span className="font-bold">more than 1.5 million parents</span> teaching their kids to read!
@@ -105,22 +107,22 @@ export default function SaveProgress() {
         </div>
 
         {/* Features List */}
-        <div className="w-full flex flex-col gap-3.5 mb-10 px-4">
+        <div className="w-full flex flex-col gap-1 mb-10 px-4">
           <div className="flex items-start gap-3">
-            <span className="text-purple-primary text-lg leading-none">✨</span>
-            <p className="text-[14px] text-slate-600 font-semibold font-quicksand">Find the right lesson to start</p>
+            <span className="text-purple-primary text-sm leading-none">✨</span>
+            <p className="text-[12px] text-slate-600 font-medium font-quicksand">Find the right lesson to start</p>
           </div>
           <div className="flex items-start gap-3">
-            <span className="text-purple-primary text-lg leading-none">✨</span>
-            <p className="text-[14px] text-slate-600 font-semibold font-quicksand">{childName || 'Child'} learns at {getPronoun()} own pace</p>
+            <span className="text-purple-primary text-sm leading-none">✨</span>
+            <p className="text-[12px] text-slate-600 font-medium font-quicksand">{childName || 'Child'} learns at {getPronoun()} own pace</p>
           </div>
           <div className="flex items-start gap-3">
-            <span className="text-purple-primary text-lg leading-none">✨</span>
-            <p className="text-[14px] text-slate-600 font-semibold font-quicksand">Progress tracking and insights</p>
+            <span className="text-purple-primary text-sm leading-none">✨</span>
+            <p className="text-[12px] text-slate-600 font-medium font-quicksand">Progress tracking and insights</p>
           </div>
           <div className="flex items-start gap-3">
-            <span className="text-purple-primary text-lg leading-none">✨</span>
-            <p className="text-[14px] text-slate-600 font-semibold font-quicksand">Access to exclusive printables</p>
+            <span className="text-purple-primary text-sm leading-none">✨</span>
+            <p className="text-[12px] text-slate-600 font-medium font-quicksand">Access to exclusive printables</p>
           </div>
         </div>
       </motion.main>
@@ -129,7 +131,7 @@ export default function SaveProgress() {
         custom={direction}
         variants={pageVariants}
         initial="initial"
-        animate="animate"
+        animate={isReady ? "animate" : "initial"}
         exit="exit"
         className="w-full max-w-[450px] px-8 sticky bottom-2 z-50 mt-auto"
       >

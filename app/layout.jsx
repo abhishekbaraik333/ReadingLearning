@@ -9,8 +9,11 @@ const quicksand = Quicksand({
 });
 
 export const metadata = {
-  title: "Reading.com Onboarding",
-  description: "Children's learning-to-read app onboarding flow",
+  title: "Reading.com | Teach Your Child To Read Early, Step By Step",
+  description: "Reading.com is a children's learning-to-read app that helps kids learn to read early, step by step.",
+  icons: {
+    icon: "/favicon-32.png",
+  },
 };
 
 import { AnimatePresence } from "framer-motion";
